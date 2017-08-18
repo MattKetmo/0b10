@@ -22,7 +22,7 @@ const styles = {
     // background: 'gold',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 24,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { withStyles } from 'material-ui/styles'
 
 import Cell from 'components/Cell'
@@ -11,61 +11,33 @@ const styles = {
   }
 }
 
-class BoardGame extends Component {
-  state = {
-    game: []
-  }
+function BoardGame(props) {
+  const {
+    cells,        // current game
+    classes,
+    game,         // initial game
+    onCellClick,  // for mutable cells only
+    size,         // Math.sqrt(cells.length)
+  } = props
 
-  componentWillMount() {
-    const { size } = this.props
-
-    const game = Array.apply(null, { length: size * size })
-    game[9] = 1
-    game[18] = 0
-
-    this.setState({ game })
-  }
-
-  onCellClick(index) {
-    const game = this.state.game.slice(0)
-
-    let value = game[index]
-    if (value === 0) {
-      value = 1
-    } else if (value === 1) {
-      value = undefined
-    } else {
-      value = 0
-    }
-
-    game[index] = value
-
-    this.setState({ game })
-  }
-
-  render() {
-    const { classes, size } = this.props
-    const { game } = this.state
-
-    return (
-      <table className={classes.table}>
-        <tbody>
-          {Array.apply(null, { length: size }).map((e, i) => (
-            <tr key={i}>
-              {Array.apply(null, { length: size }).map((e, j) => (
-                <Cell
-                  key={j}
-                  onClick={i * size + j !== 42 ? () => this.onCellClick(i * size + j) : () => {}}
-                  mutable={i * size + j !== 42}
-                  value={game[i * size + j]}
-                />
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    )
-  }
+  return (
+    <table className={classes.table}>
+      <tbody>
+        {Array.apply(null, { length: size }).map((e, i) => (
+          <tr key={i}>
+            {Array.apply(null, { length: size }).map((e, j) => (
+              <Cell
+                key={j}
+                onClick={game[i * size + j] === undefined ? () => onCellClick(i * size + j) : () => {}}
+                mutable={game[i * size + j] === undefined}
+                value={cells[i * size + j]}
+              />
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
 }
 
 export default withStyles(styles)(BoardGame)
