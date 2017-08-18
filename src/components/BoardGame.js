@@ -26,9 +26,9 @@ function BoardGame(props) {
             {row.map((cell, y) => (
               <Cell
                 key={y}
-                onClick={!game[x][y].fixed ? () => onCellClick(x, y) : () => {}}
-                fixed={game[x][y].fixed}
-                value={game[x][y].value}
+                onClick={!cell.fixed ? () => onCellClick(x, y) : () => {}}
+                fixed={cell.fixed}
+                value={cell.value}
               />
             ))}
           </tr>
