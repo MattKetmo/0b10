@@ -12,6 +12,7 @@ const styles = {
       display: 'block',
       marginTop: '100%',
     },
+    borderRadius: 2,
   },
   inner: {
     position: 'absolute',
@@ -19,7 +20,6 @@ const styles = {
     bottom: 0,
     left: 0,
     right: 0,
-    // background: 'gold',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
     fontSize: 24,
@@ -34,7 +34,11 @@ const styles = {
     }
   },
   fixed: {
-    backgroundColor: 'gold',
+    backgroundColor: '#ffd54f',
+    color: '#e64a19',
+    '&:hover': {
+      cursor: 'not-allowed',
+    },
   },
 }
 

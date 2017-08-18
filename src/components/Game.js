@@ -16,20 +16,20 @@ class Game extends Component {
   componentWillMount() {
     // Initial game (immutable cells)
     const game = [
-      [ null, 1, null, 0 ],
-      [ null, null, 0, null ],
-      [ null, 0, null, null ],
-      [ 1, 1, null, 0 ],
-      // [ null, null, 1, null, 0, null, null, null, null, null, ],
-      // [ null, null, null, null, 0,  null, null, 1, null, 0, ],
-      // [ 0, null, null, 0, null, 0, null, 1, 1, null, ],
-      // [ null, 1, null, null, null, null, null, null, null, null, ],
-      // [ null, null, 1, null, null, null, null, null, 0, null, ],
-      // [ null, 0, null, null, null, null, null, null, null, 0, ],
-      // [ null, null, null, null, null, null, null, null, 0, null, ],
-      // [ null, null, null, 1, null, null, null, null, null, null, ],
-      // [ null, 0, null, null, null, null, null, null, 1, 1, ],
-      // [ null, null, 1, null, null, null, null, null, null, 1, ],
+      // [ null, 1, null, 0 ],
+      // [ null, null, 0, null ],
+      // [ null, 0, null, null ],
+      // [ 1, 1, null, 0 ],
+      [ null, null, 1, null, 0, null, null, null, null, null, ],
+      [ null, null, null, null, 0,  null, null, 1, null, 0, ],
+      [ 0, null, null, 0, null, 0, null, 1, 1, null, ],
+      [ null, 1, null, null, null, null, null, null, null, null, ],
+      [ null, null, 1, null, null, null, null, null, 0, null, ],
+      [ null, 0, null, null, null, null, null, null, null, 0, ],
+      [ null, null, null, null, null, null, null, null, 0, null, ],
+      [ null, null, null, 1, null, null, null, null, null, null, ],
+      [ null, 0, null, null, null, null, null, null, 1, 1, ],
+      [ null, null, 1, null, null, null, null, null, null, 1, ],
     ].map((row) => row.map((cell) => ({ value: cell, fixed: cell !== null })))
 
     this.setState({ game })
