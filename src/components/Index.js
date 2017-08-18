@@ -12,17 +12,20 @@ const styles = {
 }
 
 class Index extends Component {
-  state = {
-    game: []
-  }
-
   componentWillMount() {
-    const { size } = 8
-
     // Initial game (immutable cells)
-    const game = Array.apply(null, { length: size * size })
-    game[9] = 1
-    game[18] = 0
+    const game = [
+      null, null, 1, null, 0, null, null, null, null, null,
+      null, null, null, null, 0,  null, null, 1, null, 0,
+      0, null, null, 0, null, 0, null, 1, 1, null,
+      null, 1, null, null, null, null, null, null, null, null,
+      null, null, 1, null, null, null, null, null, 0, null,
+      null, 0, null, null, null, null, null, null, null, 0,
+      null, null, null, null, null, null, null, null, 0, null,
+      null, null, null, 1, null, null, null, null, null, null,
+      null, 0, null, null, null, null, null, null, 1, 1,
+      null, null, 1, null, null, null, null, null, null, 1,
+    ]
 
     // Current game (mutable cells)
     const cells = game.slice(0)
@@ -54,7 +57,6 @@ class Index extends Component {
     return (
       <div className={classes.root}>
         <BoardGame
-          size={8}
           cells={cells}
           game={game}
           onCellClick={this.onCellClick.bind(this)}

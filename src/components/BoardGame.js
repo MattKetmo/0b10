@@ -17,8 +17,9 @@ function BoardGame(props) {
     classes,
     game,         // initial game
     onCellClick,  // for mutable cells only
-    size,         // Math.sqrt(cells.length)
   } = props
+
+  const size = Math.sqrt(cells.length)
 
   return (
     <table className={classes.table}>
@@ -28,8 +29,8 @@ function BoardGame(props) {
             {Array.apply(null, { length: size }).map((e, j) => (
               <Cell
                 key={j}
-                onClick={game[i * size + j] === undefined ? () => onCellClick(i * size + j) : () => {}}
-                mutable={game[i * size + j] === undefined}
+                onClick={game[i * size + j] === null ? () => onCellClick(i * size + j) : () => {}}
+                mutable={game[i * size + j] === null}
                 value={cells[i * size + j]}
               />
             ))}
