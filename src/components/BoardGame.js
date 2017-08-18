@@ -13,25 +13,22 @@ const styles = {
 
 function BoardGame(props) {
   const {
-    cells,        // current game
     classes,
-    game,         // initial game
-    onCellClick,  // for mutable cells only
+    game,
+    onCellClick,
   } = props
-
-  const size = Math.sqrt(cells.length)
 
   return (
     <table className={classes.table}>
       <tbody>
-        {Array.apply(null, { length: size }).map((e, i) => (
-          <tr key={i}>
-            {Array.apply(null, { length: size }).map((e, j) => (
+        {game.map((row, x) => (
+          <tr key={x}>
+            {row.map((cell, y) => (
               <Cell
-                key={j}
-                onClick={game[i * size + j] === null ? () => onCellClick(i * size + j) : () => {}}
-                mutable={game[i * size + j] === null}
-                value={cells[i * size + j]}
+                key={y}
+                onClick={!game[x][y].fixed ? () => onCellClick(x, y) : () => {}}
+                fixed={game[x][y].fixed}
+                value={game[x][y].value}
               />
             ))}
           </tr>

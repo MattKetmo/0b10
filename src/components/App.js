@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 
-import Index from 'components/Index'
+import Game from 'components/Game'
 
 const styles = (theme) => ({
   '@global': {
@@ -29,7 +29,7 @@ const styles = (theme) => ({
 class App extends Component {
   render() {
     return (
-      <Index />
+      <Game />
     )
   }
 }

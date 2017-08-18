@@ -33,7 +33,7 @@ const styles = {
       backgroundColor: '#ddd',
     }
   },
-  immutable: {
+  fixed: {
     backgroundColor: 'gold',
   },
 }
@@ -41,7 +41,7 @@ const styles = {
 function Cell(props) {
   const {
     classes,
-    mutable,
+    fixed,
     onClick,
     value,
   } = props
@@ -51,8 +51,8 @@ function Cell(props) {
       className={classNames(
         classes.root,
         {
-          [classes.mutable]: mutable,
-          [classes.immutable]: !mutable,
+          [classes.mutable]: !fixed,
+          [classes.fixed]: fixed,
         }
       )}
       onClick={onClick}
