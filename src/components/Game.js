@@ -1,66 +1,68 @@
 import React, { Component } from 'react'
+import Button from 'material-ui/Button'
 import { connect } from 'react-redux'
-import { withStyles } from 'material-ui/styles'
 
 import BoardGame from 'components/BoardGame'
-import { isGameComplete, isGameWon } from 'game'
+import Layout from 'components/Layout'
 
-import { updateCell } from '../redux';
+import * as game from '../game'
+import { newGame, updateCell } from '../redux';
 
-const styles = {
-  root: {
-    maxWidth: 500,
-    margin: [0, 'auto'],
-    padding: [50, 10],
+function nextValue(value) {
+  switch (value) {
+    case 0:
+      return 1;
+    case 1:
+      return null;
+    default:
+      return 0;
   }
 }
 
+// Main container
 class Game extends Component {
-  onCellClick(x, y) {
-    const { game } = this.props
+  onNewGameClick() {
+    this.props.newGame(game.generate())
+  }
 
-    if (game[x][y].fixed) {
+  onCellClick(x, y) {
+    const { currentGame } = this.props
+
+    if (currentGame[x][y].fixed) {
       return
     }
 
-    let value = game[x][y].value
+    this.props.updateCell(x, y, nextValue(currentGame[x][y].value))
 
-    if (value === 0) {
-      value = 1
-    } else if (value === 1) {
-      value = null
-    } else {
-      value = 0
-    }
-
-    this.props.updateCell(x, y, value)
-
-    console.log("WIN =", isGameComplete(game) && isGameWon(game))
+    console.log("WIN =", game.isComplete(currentGame) && game.isWon(currentGame))
+    game.isComplete(currentGame) && game.isWon(currentGame) && alert("You win!")
   }
 
   render() {
-    const { classes, game } = this.props
-    console.log(game)
+    const { currentGame } = this.props
 
     return (
-      <div className={classes.root}>
-        <BoardGame game={game} onCellClick={this.onCellClick.bind(this)} />
-      </div>
+      <Layout>
+        <Button onClick={this.onNewGameClick.bind(this)}>
+          New Game
+        </Button>
+
+        <BoardGame
+          game={currentGame}
+          onCellClick={this.onCellClick.bind(this)}
+        />
+      </Layout>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  game: state.game,
+  currentGame: state.currentGame,
 })
 
 const mapDispatchToProps = {
+  newGame,
   updateCell,
 }
 
-const GameContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Game))
-
-export default GameContainer
+export default connect(mapStateToProps, mapDispatchToProps)(Game)

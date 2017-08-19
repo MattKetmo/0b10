@@ -12,7 +12,7 @@ export const updateCell = (x, y, value) => ({
 })
 
 // reducers.js
-export const game = (state = {}, { type, payload }) => {
+export const currentGame = (state = [], { type, payload }) => {
   switch (type) {
     case 'NEW_GAME':
       return payload
@@ -26,30 +26,11 @@ export const game = (state = {}, { type, payload }) => {
 }
 
 export const reducers = combineReducers({
-  game,
+  currentGame,
 })
 
 // store.js
-const INITIAL_STATE = {
-  game: [
-    // [ null, 1, null, 0 ],
-    // [ null, null, 0, null ],
-    // [ null, 0, null, null ],
-    // [ 1, 1, null, 0 ],
-    [ null, null, 1, null, 0, null, null, null, null, null, ],
-    [ null, null, null, null, 0,  null, null, 1, null, 0, ],
-    [ 0, null, null, 0, null, 0, null, 1, 1, null, ],
-    [ null, 1, null, null, null, null, null, null, null, null, ],
-    [ null, null, 1, null, null, null, null, null, 0, null, ],
-    [ null, 0, null, null, null, null, null, null, null, 0, ],
-    [ null, null, null, null, null, null, null, null, 0, null, ],
-    [ null, null, null, 1, null, null, null, null, null, null, ],
-    [ null, 0, null, null, null, null, null, null, 1, 1, ],
-    [ null, null, 1, null, null, null, null, null, null, 1, ],
-  ].map((row) => row.map((cell) => ({ value: cell, fixed: cell !== null })))
-}
-
-export function configureStore(initialState = INITIAL_STATE) {
+export function configureStore(initialState = {}) {
   const store = createStore(
     reducers,
     initialState,

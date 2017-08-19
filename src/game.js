@@ -1,4 +1,23 @@
-export function isGameComplete(game) {
+export function generate() {
+  return [
+    // [ null, 1, null, 0 ],
+    // [ null, null, 0, null ],
+    // [ null, 0, null, null ],
+    // [ 1, 1, null, 0 ],
+    [ null, null, 1, null, 0, null, null, null, null, null, ],
+    [ null, null, null, null, 0,  null, null, 1, null, 0, ],
+    [ 0, null, null, 0, null, 0, null, 1, 1, null, ],
+    [ null, 1, null, null, null, null, null, null, null, null, ],
+    [ null, null, 1, null, null, null, null, null, 0, null, ],
+    [ null, 0, null, null, null, null, null, null, null, 0, ],
+    [ null, null, null, null, null, null, null, null, 0, null, ],
+    [ null, null, null, 1, null, null, null, null, null, null, ],
+    [ null, 0, null, null, null, null, null, null, 1, 1, ],
+    [ null, null, 1, null, null, null, null, null, null, 1, ],
+  ].map((row) => row.map((cell) => ({ value: cell, fixed: cell !== null })))
+}
+
+export function isComplete(game) {
   return game
     .map(row => row.filter(cell => cell.value === null).length)
     .filter(nullCount => nullCount > 0)
@@ -25,7 +44,7 @@ function isListUnique(cellsList) {
   return hashes.length === uniqueHashes.length
 }
 
-export function isGameWon(game) {
+export function isWon(game) {
   const rows = game.map(rows => rows.map(cell => cell.value))
   const cols = Object.keys(game[0]).map(i => game.map(row => row[i].value))
 
