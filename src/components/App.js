@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { Provider } from 'react-redux';
 import { withStyles } from 'material-ui/styles'
 
+import { store } from '../redux';
 import Game from 'components/Game'
 
 const styles = (theme) => ({
@@ -29,7 +31,9 @@ const styles = (theme) => ({
 class App extends Component {
   render() {
     return (
-      <Game />
+      <Provider store={store}>
+        <Game />
+      </Provider>
     )
   }
 }

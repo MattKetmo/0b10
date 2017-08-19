@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { withStyles } from 'material-ui/styles'
 
 import BoardGame from 'components/BoardGame'
 import { isGameComplete, isGameWon } from 'game'
+
+import { updateCell } from '../redux';
 
 const styles = {
   root: {
@@ -13,31 +16,8 @@ const styles = {
 }
 
 class Game extends Component {
-  componentWillMount() {
-    // Initial game (immutable cells)
-    const game = [
-      // [ null, 1, null, 0 ],
-      // [ null, null, 0, null ],
-      // [ null, 0, null, null ],
-      // [ 1, 1, null, 0 ],
-      [ null, null, 1, null, 0, null, null, null, null, null, ],
-      [ null, null, null, null, 0,  null, null, 1, null, 0, ],
-      [ 0, null, null, 0, null, 0, null, 1, 1, null, ],
-      [ null, 1, null, null, null, null, null, null, null, null, ],
-      [ null, null, 1, null, null, null, null, null, 0, null, ],
-      [ null, 0, null, null, null, null, null, null, null, 0, ],
-      [ null, null, null, null, null, null, null, null, 0, null, ],
-      [ null, null, null, 1, null, null, null, null, null, null, ],
-      [ null, 0, null, null, null, null, null, null, 1, 1, ],
-      [ null, null, 1, null, null, null, null, null, null, 1, ],
-    ].map((row) => row.map((cell) => ({ value: cell, fixed: cell !== null })))
-
-    this.setState({ game })
-  }
-
   onCellClick(x, y) {
-    // Copy current game
-    const game = this.state.game.slice(0)
+    const { game } = this.props
 
     if (game[x][y].fixed) {
       return
@@ -53,16 +33,14 @@ class Game extends Component {
       value = 0
     }
 
-    game[x][y].value = value
+    this.props.updateCell(x, y, value)
 
     console.log("WIN =", isGameComplete(game) && isGameWon(game))
-
-    this.setState({ game })
   }
 
   render() {
-    const { classes } = this.props
-    const { game } = this.state
+    const { classes, game } = this.props
+    console.log(game)
 
     return (
       <div className={classes.root}>
@@ -72,4 +50,17 @@ class Game extends Component {
   }
 }
 
-export default withStyles(styles)(Game)
+const mapStateToProps = (state, ownProps) => ({
+  game: state.game,
+})
+
+const mapDispatchToProps = {
+  updateCell,
+}
+
+const GameContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Game))
+
+export default GameContainer
