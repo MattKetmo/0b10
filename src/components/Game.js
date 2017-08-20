@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Button from 'material-ui/Button'
+import Dialog, { DialogActions, DialogTitle } from 'material-ui/Dialog'
 import { connect } from 'react-redux'
 
 import BoardGame from 'components/BoardGame'
@@ -21,8 +22,21 @@ function nextValue(value) {
 
 // Main container
 class Game extends Component {
+  state = {
+    dialogOpen: false
+  }
+
+  openDialog() {
+    this.setState({ dialogOpen: true })
+  }
+
+  closeDialog() {
+    this.setState({ dialogOpen: false })
+  }
+
   onNewGameClick() {
     this.props.newGame(game.generate())
+    this.setState({ dialogOpen: false })
   }
 
   onCellClick(x, y) {
@@ -43,7 +57,7 @@ class Game extends Component {
 
     return (
       <Layout>
-        <Button onClick={this.onNewGameClick.bind(this)}>
+        <Button onClick={() => this.openDialog()}>
           New Game
         </Button>
 
@@ -51,6 +65,20 @@ class Game extends Component {
           game={currentGame}
           onCellClick={this.onCellClick.bind(this)}
         />
+
+        <Dialog open={this.state.dialogOpen} onRequestClose={() => this.closeDialog()}>
+          <DialogTitle>
+            {"Start a new game?"}
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={() => this.closeDialog()}>
+              Cancel
+            </Button>
+            <Button onClick={() => this.onNewGameClick()} color="primary">
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Layout>
     )
   }
