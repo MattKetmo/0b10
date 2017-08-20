@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, compose, createStore } from 'redux'
+import { persistStore, autoRehydrate } from 'redux-persist'
 
 // actions.js
 export const newGame = (game) => ({
@@ -34,8 +35,15 @@ export function configureStore(initialState = {}) {
   const store = createStore(
     reducers,
     initialState,
+    compose(
+      // applyMiddleware(...),
+      autoRehydrate()
+    )
   )
   return store
 }
 
 export const store = configureStore()
+
+// begin periodically persisting the store
+persistStore(store)
