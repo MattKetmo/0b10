@@ -2,17 +2,17 @@ import React from 'react'
 import classNames from 'classnames'
 import { withStyles } from 'material-ui/styles'
 
-const styles = {
+const styles = (theme) => ({
   root: {
     position: 'relative',
-    backgroundColor: '#eee',
+    borderRadius: 2,
+    userSelect: 'none',
     /*border: '1px solid black',*/
     '&:after': {
       content: '""',
       display: 'block',
       marginTop: '100%',
     },
-    borderRadius: 2,
   },
   inner: {
     position: 'absolute',
@@ -30,17 +30,29 @@ const styles = {
   mutable: {
     '&:hover': {
       cursor: 'pointer',
-      backgroundColor: '#ddd',
     }
   },
   fixed: {
-    backgroundColor: '#ffd54f',
-    color: '#e64a19',
+    // backgroundColor: '#ffd54f',
+    // color: '#e64a19',
+    color: '#424242',
     '&:hover': {
       cursor: 'not-allowed',
     },
   },
-}
+  empty: {
+    backgroundColor: '#eee',
+    '&:hover': {
+      backgroundColor: '#ddd',
+    }
+  },
+  zero: {
+    backgroundColor: '#FFD54F',
+  },
+  one: {
+    backgroundColor: '#4FC3F7',
+  },
+})
 
 function Cell(props) {
   const {
@@ -57,6 +69,9 @@ function Cell(props) {
         {
           [classes.mutable]: !fixed,
           [classes.fixed]: fixed,
+          [classes.empty]: value === null,
+          [classes.zero]: value === 0,
+          [classes.one]: value === 1,
         }
       )}
       onClick={onClick}
