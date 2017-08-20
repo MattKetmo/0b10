@@ -29,24 +29,33 @@ function hasSameRepartition(cells) {
 }
 
 function has2MaxIdenticalCells(cells) {
-  for (let i = 0; i < cells.length - 2; i++) {
-    if (cells[i] === cells[i + 1] && cells[i] === cells[i + 2]) {
-      return false
-    }
-  }
-  return true
+  const str = cellsToString(cells)
+
+  return str.indexOf('000') === -1 && str.indexOf('111') === -1
+}
+
+function cellsToString(cells) {
+  return cells.reduce((acc, cur) => acc + (cur !== null ? cur : '-'), '')
 }
 
 function isListUnique(cellsList) {
-  const hashes = cellsList.map(cells => cells.reduce((acc, cur) => `${acc}${cur}`, ''))
+  const hashes = cellsList.map(cells => cellsToString(cells))
   const uniqueHashes = hashes.filter((row, pos) => hashes.indexOf(row) === pos)
 
   return hashes.length === uniqueHashes.length
 }
 
+function extractRows(game) {
+  return game.map(rows => rows.map(cell => cell.value))
+}
+
+function extractColumns(game) {
+  return Object.keys(game[0]).map(i => game.map(row => row[i].value))
+}
+
 export function isWon(game) {
-  const rows = game.map(rows => rows.map(cell => cell.value))
-  const cols = Object.keys(game[0]).map(i => game.map(row => row[i].value))
+  const rows = extractRows(game)
+  const cols = extractColumns(game)
 
   // Rule 1. Each row and each column should contain an equal number of 0s and 1s.
   for (let row of rows) {
