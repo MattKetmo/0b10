@@ -9,6 +9,7 @@ const styles = (theme) => ({
   '@global': {
     html: {
       boxSizing: 'border-box',
+      height: '100%',
     },
     '*, *:before, *:after': {
       boxSizing: 'inherit',
@@ -18,12 +19,16 @@ const styles = (theme) => ({
       background: theme.palette.background.default,
       color: theme.palette.text.primary,
       lineHeight: '1.2',
+      height: '100%',
       overflowX: 'hidden',
       WebkitFontSmoothing: 'antialiased', // Antialiasing.
       MozOsxFontSmoothing: 'grayscale', // Antialiasing.
     },
     a: {
       textDecoration: 'none',
+    },
+    '#root': {
+      height: '100%',
     },
   },
 })

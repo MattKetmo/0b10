@@ -4,7 +4,9 @@ import Dialog, { DialogActions, DialogTitle } from 'material-ui/Dialog'
 import { connect } from 'react-redux'
 
 import BoardGame from 'components/BoardGame'
+import BottomBar from 'components/BottomBar'
 import Layout from 'components/Layout'
+import Title from 'components/Title'
 
 import * as game from '../game'
 import { newGame, updateCell } from '../redux';
@@ -48,22 +50,27 @@ class Game extends Component {
 
     this.props.updateCell(x, y, nextValue(currentGame[x][y].value))
 
-    console.log("WIN =", game.isComplete(currentGame) && game.isWon(currentGame))
     game.isComplete(currentGame) && game.isWon(currentGame) && alert("You win!")
   }
 
   render() {
     const { currentGame } = this.props
 
+    const gameSize = currentGame.length
+
     return (
       <Layout>
-        <Button onClick={() => this.openDialog()}>
-          New Game
-        </Button>
+        <Title>
+          {`Binary Puzzle ${gameSize}x${gameSize}`}
+        </Title>
 
         <BoardGame
           game={currentGame}
           onCellClick={this.onCellClick.bind(this)}
+        />
+
+        <BottomBar
+          onAddClick={this.openDialog.bind(this)}
         />
 
         <Dialog open={this.state.dialogOpen} onRequestClose={() => this.closeDialog()}>

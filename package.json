@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "material-ui": "^1.0.0-beta.5",
-    "material-ui-icons": "^1.0.0-alpha.19",
+    "material-ui": "^1.0.0-beta.12",
+    "material-ui-icons": "^1.0.0-beta.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
-    "react-scripts": "^1.0.10",
+    "react-scripts": "^1.0.13",
     "redux": "^3.7.2",
-    "redux-persist": "^4.8.3"
+    "redux-persist": "^4.10.0"
   },
   "scripts": {
     "start": "react-scripts start",

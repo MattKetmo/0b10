@@ -5,7 +5,14 @@ const styles = {
   root: {
     maxWidth: 500,
     margin: [0, 'auto'],
-    padding: [50, 10],
+    padding: [10, 10],
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    flexShrink: 1,
+    justifyContent: 'center',
+    overflowX: 'hidden',
   }
 }
 
