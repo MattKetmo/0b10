@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Button from 'material-ui/Button'
 import Dialog, { DialogActions, DialogTitle } from 'material-ui/Dialog'
+import Slide from 'material-ui/transitions/Slide'
 import { connect } from 'react-redux'
 
 import BoardGame from 'components/BoardGame'
@@ -28,20 +29,20 @@ class Game extends Component {
     dialogOpen: false
   }
 
-  openDialog() {
+  openDialog = () => {
     this.setState({ dialogOpen: true })
   }
 
-  closeDialog() {
+  closeDialog = () => {
     this.setState({ dialogOpen: false })
   }
 
-  onNewGameClick() {
+  onNewGameClick = () => {
     this.props.newGame(game.generate())
     this.setState({ dialogOpen: false })
   }
 
-  onCellClick(x, y) {
+  onCellClick = (x, y) => {
     const { currentGame } = this.props
 
     if (currentGame[x][y].fixed) {
@@ -55,33 +56,37 @@ class Game extends Component {
 
   render() {
     const { currentGame } = this.props
-
     const gameSize = currentGame.length
 
     return (
       <Layout>
-        <Title>
-          {`Binary Puzzle ${gameSize}x${gameSize}`}
-        </Title>
+        <Title
+          headline={`Binary Puzzle ${gameSize}x${gameSize}`}
+        />
 
         <BoardGame
           game={currentGame}
-          onCellClick={this.onCellClick.bind(this)}
+          onCellClick={this.onCellClick}
         />
 
         <BottomBar
-          onAddClick={this.openDialog.bind(this)}
+          onAddClick={this.openDialog}
         />
 
-        <Dialog open={this.state.dialogOpen} onRequestClose={() => this.closeDialog()}>
+        <Dialog
+          fullScreen
+          open={this.state.dialogOpen}
+          onRequestClose={this.closeDialog}
+          transition={<Slide direction="up" />}
+        >
           <DialogTitle>
             {"Start a new game?"}
           </DialogTitle>
           <DialogActions>
-            <Button onClick={() => this.closeDialog()}>
+            <Button onClick={this.closeDialog}>
               Cancel
             </Button>
-            <Button onClick={() => this.onNewGameClick()} color="primary">
+            <Button onClick={this.onNewGameClick} color="primary">
               Yes
             </Button>
           </DialogActions>

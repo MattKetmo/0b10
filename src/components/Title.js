@@ -11,13 +11,13 @@ const styles = (theme) => ({
 
 function Title(props) {
   const {
-    children,
+    headline,
     classes,
   } = props
 
   return (
     <Typography className={classes.root} type="headline">
-      {children}
+      {headline}
     </Typography>
   )
 }
